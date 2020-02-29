@@ -11,11 +11,18 @@ setInterval(function () {
     http.get("http://corona-data.herokuapp.com")
 }, 900000)
 
-app.use(function (req, res, next) {
-    res.header("Access-Control-Allow-Origin", "https://corona19-news.herokuapp.com"); // update to match the domain you will make the request from
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*")
+    res.header(
+        "Access-Control-Allow-Headers",
+        "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+    );
+    if (req.method === 'OPTIONS') {
+        res.header('Access-Control-Allow-Methods', 'PUT, POST, PATCH, DELETE, GET');
+        return res.status(200).json({});
+    }
     next();
-});
+})
 
 app.get('/',function (req, res){
     res.send('This page is made for corona19_data')
