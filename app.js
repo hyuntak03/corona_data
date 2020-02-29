@@ -11,6 +11,10 @@ setInterval(function () {
     http.get("http://corona-data.herokuapp.com")
 }, 900000)
 
+app.get('/',function (req, res){
+    res.send('This page is made for corona19_data')
+})
+
 app.get('/infected',function (req, res){
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
@@ -47,20 +51,6 @@ app.get('/die',function (req, res){
             test_text = text.toString();
             test_text = test_text.split('\n');
             a = test_text[3].replace(/[^0-9]/g, "");
-        })
-        res.send(a)
-        console.log(a)
-    });
-})
-
-app.get('/examine',function (req, res){
-    request(url, function (error, response, body) {
-        var $ = cheerio.load(body)
-        $('.num > tbody > td').each(function () {
-            text = $(this).text();
-            test_text = text.toString();
-            test_text = test_text.split('\n');
-            a = test_text[0].replace(/[^0-9]/g, "");
         })
         res.send(a)
         console.log(a)
