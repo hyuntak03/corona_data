@@ -11,7 +11,7 @@ setInterval(function () {
     http.get("http://corona-data.herokuapp.com")
 }, 900000)
 
-server.use((req, res, next) => {
+app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin", "*")
     res.header(
         "Access-Control-Allow-Headers",
