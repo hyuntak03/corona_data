@@ -1,9 +1,15 @@
 var cheerio = require('cheerio')
 var request = require('request')
 var express = require('express')
+const http = require('http')
 var app = express()
 var port = process.env.PORT || 3000;
 var url = 'http://ncov.mohw.go.kr/index_main.jsp';
+
+
+setInterval(function () {
+    http.get("http://corona-data.herokuapp.com")
+}, 900000)
 
 app.get('/infected',function (req, res){
     request(url, function (error, response, body) {
