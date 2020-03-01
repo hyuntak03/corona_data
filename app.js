@@ -70,6 +70,30 @@ app.get('/die',function (req, res){
     });
 })
 
+app.get('/die_percentage',function (req, res){
+    request(url, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.co_cur > ul').each(function () {
+            text = $(this).text();
+            test_text = text.toString();
+            test_text = test_text.split('\n');
+            a = test_text[1].replace(/[^0-9]/g, "");
+        })
+        request(url, function (error, response, body) {
+            var $ = cheerio.load(body)
+            $('.co_cur > ul').each(function () {
+                text = $(this).text();
+                test_text = text.toString();
+                test_text = test_text.split('\n');
+                var b = test_text[3].replace(/[^0-9]/g, "");
+                b = b / a * 100
+                res.send(b)
+                console.log(b)
+            })
+        });
+    });
+})
+
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
