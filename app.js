@@ -189,7 +189,7 @@ app.get('/sejong', function (req, res) {
     });
 })
 
-app.get('/gyonggi', function (req, res) {
+app.get('/gyeonggi', function (req, res) {
     request(url1, function (error, response, body) {
         var $ = cheerio.load(body)
         $('.num > tbody > tr:nth-child(10) > td:nth-child(3)').each(function () {
