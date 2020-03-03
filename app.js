@@ -24,6 +24,8 @@ app.use((req, res, next) => {
     next();
 })
 
+app.use('/static', express.static(__dirname + '/map'));
+
 app.get('/',function (req, res){
     res.send('This page is made for corona19_data')
 })
