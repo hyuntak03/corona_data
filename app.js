@@ -5,6 +5,7 @@ const http = require('http')
 var app = express()
 var port = process.env.PORT || 3000;
 var url = 'http://ncov.mohw.go.kr/index_main.jsp';
+var url1 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=13&ncvContSeq=&contSeq=&board_id=&gubun=';
 
 
 setInterval(function () {
@@ -24,13 +25,11 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use(express.static('map'));
-
-app.get('/',function (req, res){
+app.get('/', function (req, res) {
     res.send('This page is made for corona19_data')
 })
 
-app.get('/infected',function (req, res){
+app.get('/infected', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
         $('.co_cur > ul').each(function () {
@@ -44,7 +43,7 @@ app.get('/infected',function (req, res){
     });
 })
 
-app.get('/release',function (req, res){
+app.get('/release', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
         $('.co_cur > ul').each(function () {
@@ -58,7 +57,7 @@ app.get('/release',function (req, res){
     });
 })
 
-app.get('/die',function (req, res){
+app.get('/die', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
         $('.co_cur > ul').each(function () {
@@ -72,7 +71,7 @@ app.get('/die',function (req, res){
     });
 })
 
-app.get('/die_percentage',function (req, res){
+app.get('/die_percentage', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
         $('.co_cur > ul').each(function () {
@@ -88,7 +87,7 @@ app.get('/die_percentage',function (req, res){
                 test_text = text.toString();
                 test_text = test_text.split('\n');
                 var b = test_text[3].replace(/[^0-9]/g, "");
-                b = (b / a )* 10000
+                b = (b / a) * 10000
                 b = b.toFixed(0)
                 res.send(b)
                 console.log(b)
@@ -97,6 +96,190 @@ app.get('/die_percentage',function (req, res){
     });
 })
 
+app.get('/infected_plus', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody').find('td.number').first().each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/seoul', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(2) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/busan', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(3) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/daegu', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(4) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/incheon', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(5) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/gwangju', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(6) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/daejun', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(7) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/wulsan', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(8) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/sejong', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(9) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/gyonggi', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(10) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/gangwon', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(11) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/chungbuk', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(12) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/chungnam', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(13) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/junbuk', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(14) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/junnam', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(15) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/keongbuk', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(16) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/keongnam', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(17) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+app.get('/jeju', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(18) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
