@@ -24,7 +24,7 @@ app.use((req, res, next) => {
     next();
 })
 
-app.use('/users', express.static('map'));
+app.use(express.static('public'));
 
 app.get('/',function (req, res){
     res.send('This page is made for corona19_data')
