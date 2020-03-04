@@ -51,9 +51,9 @@ app.get('/release', function (req, res) {
             test_text = text.toString();
             test_text = test_text.split('\n');
             var a = test_text[2].replace(/[^0-9]/g, "");
+            res.send(a)
+            console.log(a)
         })
-        res.send(a)
-        console.log(a)
     });
 })
 
@@ -65,9 +65,9 @@ app.get('/die', function (req, res) {
             test_text = text.toString();
             test_text = test_text.split('\n');
             var a = test_text[3].replace(/[^0-9]/g, "");
+            res.send(a)
+            console.log(a)
         })
-        res.send(a)
-        console.log(a)
     });
 })
 
