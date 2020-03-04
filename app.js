@@ -325,6 +325,17 @@ app.get('/japan', function (req, res) {
     });
 })
 
+app.get('/infected_percentage', function (req, res) {
+    request(url1, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(1) > td:nth-child(5)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
