@@ -78,7 +78,7 @@ app.get('/die_percentage', function (req, res) {
             text = $(this).text();
             text2 = $(this).text();
             test_text = text.toString();
-            test_text2 = text2l.toString();
+            test_text2 = text2.toString();
             test_text = test_text.split('\n');
             test_text2 = test_text2.split('\n')
             var a = test_text[1].replace(/[^0-9]/g, "");
