@@ -84,6 +84,7 @@ app.get('/die_percentage', function (req, res) {
             var a = test_text[1].replace(/[^0-9]/g, "");
             var b = test_text[3].replace(/[^0-9]/g, "");
             var c = (b/a)*100;
+            c = c.toFixed(2)
             c = c.toString();
             res.send(c);
         })
