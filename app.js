@@ -50,7 +50,7 @@ app.get('/release', function (req, res) {
             text = $(this).text();
             test_text = text.toString();
             test_text = test_text.split('\n');
-            a = test_text[2].replace(/[^0-9]/g, "");
+            var a = test_text[2].replace(/[^0-9]/g, "");
         })
         res.send(a)
         console.log(a)
@@ -64,7 +64,7 @@ app.get('/die', function (req, res) {
             text = $(this).text();
             test_text = text.toString();
             test_text = test_text.split('\n');
-            a = test_text[3].replace(/[^0-9]/g, "");
+            var a = test_text[3].replace(/[^0-9]/g, "");
         })
         res.send(a)
         console.log(a)
@@ -76,23 +76,17 @@ app.get('/die_percentage', function (req, res) {
         var $ = cheerio.load(body)
         $('.co_cur > ul').each(function () {
             text = $(this).text();
+            text2 = $(this).text();
             test_text = text.toString();
+            test_text2 = text2l.toString();
             test_text = test_text.split('\n');
-            a = test_text[1].replace(/[^0-9]/g, "");
+            test_text2 = test_text2.split('\n')
+            var a = test_text[1].replace(/[^0-9]/g, "");
+            var b = test_text[3].replace(/[^0-9]/g, "");
+            var c = (b/a)*100;
+            c = c.toString();
+            res.send(c);
         })
-        request(url, function (error, response, body) {
-            var $ = cheerio.load(body)
-            $('.co_cur > ul').each(function () {
-                text = $(this).text();
-                test_text = text.toString();
-                test_text = test_text.split('\n');
-                var b = test_text[3].replace(/[^0-9]/g, "");
-                b = (b / a) * 10000
-                b = b.toFixed(0)
-                res.send(b)
-                console.log(b)
-            })
-        });
     });
 })
 
