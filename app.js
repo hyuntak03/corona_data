@@ -6,7 +6,7 @@ var app = express()
 var port = process.env.PORT || 3000;
 var url = 'http://ncov.mohw.go.kr/index_main.jsp';
 var url1 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=13&ncvContSeq=&contSeq=&board_id=&gubun=';
-
+var url2 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=&brdGubun=&ncvContSeq=&contSeq=&board_id=&gubun='
 
 setInterval(function () {
     http.get("http://corona-data.herokuapp.com")
@@ -280,6 +280,51 @@ app.get('/jeju', function (req, res) {
         })
     });
 })
+
+app.get('/china', function (req, res) {
+    request(url2, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(1) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/iran', function (req, res) {
+    request(url2, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(19) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/italy', function (req, res) {
+    request(url2, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(40) > td:nth-child(3)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
+app.get('/japan', function (req, res) {
+    request(url2, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.num > tbody > tr:nth-child(5) > td:nth-child(2)').each(function () {
+            text = $(this).text().toString();
+            res.send(text)
+            console.log(text)
+        })
+    });
+})
+
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
