@@ -331,6 +331,22 @@ app.get('/infected_percentage', function (req, res) {
     });
 })
 
+app.get('/korea', function(req,res){
+    request(url, function (error, response, body) {
+        var $ = cheerio.load(body)
+        $('.co_cur > ul').each(function () {
+            text = $(this).text();
+            test_text = text.toString();
+            test_text = test_text.split('\n');
+            var a = test_text[1].replace(/[^0-9]/g, "");
+            var b = test_text[3].replace(/[^0-9]/g, "");
+            var c = a + "명(사망 " + b + ")"
+            res.send(c)
+            console.log(c)
+        })
+    });
+})
+
 app.listen(port, function () {
     console.log('서버 실행중...');
 });
