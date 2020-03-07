@@ -290,7 +290,7 @@ app.get('/china', function (req, res) {
 app.get('/iran', function (req, res) {
     request(url2, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.num > tbody > tr:nth-child(19) > td:nth-child(3)').each(function () {
+        $('.num > tbody > tr:nth-child(20) > td:nth-child(3)').each(function () {
             text = $(this).text().toString();
             res.send(text)
             console.log(text)
@@ -301,7 +301,7 @@ app.get('/iran', function (req, res) {
 app.get('/italy', function (req, res) {
     request(url2, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.num > tbody > tr:nth-child(42) > td:nth-child(3)').each(function () {
+        $('.num > tbody > tr:nth-child(44) > td:nth-child(3)').each(function () {
             text = $(this).text().toString();
             res.send(text)
             console.log(text)
