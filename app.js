@@ -79,7 +79,7 @@ app.get('/die_percentage', function (req, res) {
             var die = text[11].replace(/[^0-9]/g, "");
             die_percentage = (die / infected) * 100
             die_percentage = die_percentage.toFixed(2)
-            res.send(die);
+            res.send(die_percentage);
             console.log(die_percentage);
         })
     })
