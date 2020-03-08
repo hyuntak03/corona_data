@@ -50,7 +50,6 @@ app.get('/release', function (req, res) {
             text = $(this).text().toString();
             text = text.split('\n')
             text = text[15].replace(/[^0-9]/g, "");
-            text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             res.send(text);
             console.log(text);
         })
@@ -64,7 +63,6 @@ app.get('/die', function (req, res) {
             text = $(this).text().toString();
             text = text.split('\n')
             text = text[11].replace(/[^0-9]/g, "");
-            text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             res.send(text);
             console.log(text);
         })
