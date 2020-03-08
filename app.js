@@ -4,7 +4,7 @@ var express = require('express')
 const http = require('http')
 var app = express()
 var port = process.env.PORT || 3000;
-var url = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun=';
+var url = 'http://ncov.mohw.go.kr/';
 var url1 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=13&ncvContSeq=&contSeq=&board_id=&gubun=';
 var url2 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=&brdGubun=&ncvContSeq=&contSeq=&board_id=&gubun='
 
@@ -32,62 +32,60 @@ app.get('/', function (req, res) {
 app.get('/infected', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.num > tbody > tr:nth-child(1) > td:nth-child(2)').each(function () {
+        $('div#mapAll > .mapview > .cityinfo').each(function () {
             text = $(this).text().toString();
-            //text = text.split('\n')
-            var text = text.replace(/[^0-9]/g, "");
+            text = text.split('\n')
+            text = text[3].replace(/[^0-9]/g, "");
+            text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             res.send(text);
             console.log(text);
         })
-    });
+    })
 })
 
 app.get('/release', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.co_cur > ul').each(function () {
-            text = $(this).text();
-            test_text = text.toString();
-            test_text = test_text.split('\n');
-            var a = test_text[2].replace(/[^0-9]/g, "");
-            res.send(a)
-            console.log(a)
+        $('div#mapAll > .mapview > .cityinfo  ').each(function () {
+            text = $(this).text().toString();
+            text = text.split('\n')
+            text = text[15].replace(/[^0-9]/g, "");
+            text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            res.send(text);
+            console.log(text);
         })
-    });
+    })
 })
 
 app.get('/die', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.co_cur > ul').each(function () {
-            text = $(this).text();
-            test_text = text.toString();
-            test_text = test_text.split('\n');
-            var a = test_text[3].replace(/[^0-9]/g, "");
-            res.send(a)
-            console.log(a)
+        $('div#mapAll > .mapview > .cityinfo  ').each(function () {
+            text = $(this).text().toString();
+            text = text.split('\n')
+            text = text[11].replace(/[^0-9]/g, "");
+            text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            res.send(text);
+            console.log(text);
         })
-    });
+    })
 })
 
 app.get('/die_percentage', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.co_cur > ul').each(function () {
-            text = $(this).text();
-            text2 = $(this).text();
-            test_text = text.toString();
-            test_text2 = text2.toString();
-            test_text = test_text.split('\n');
-            test_text2 = test_text2.split('\n')
-            var a = test_text[1].replace(/[^0-9]/g, "");
-            var b = test_text[3].replace(/[^0-9]/g, "");
-            var c = (b/a)*100;
-            c = c.toFixed(2)
-            c = c.toString();
-            res.send(c);
+        $('div#mapAll > .mapview > .cityinfo  ').each(function () {
+            var infected = $(this).text().toString();
+            var die = $(this).text().toString();
+            infected = infected.split('\n')
+            die = die.split('\n')
+            infected = infected[3].replace(/[^0-9]/g, "");
+            die = die[11].replace(/[^0-9]/g, "");
+            var die_percentage = (die/infected) * 100;
+            res.send(die_percentage);
+            console.log(die_percentage);
         })
-    });
+    })
 })
 
 app.get('/infected_plus', function (req, res) {
