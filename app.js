@@ -314,18 +314,21 @@ app.get('/japan', function (req, res) {
     });
 })
 
-app.get('/infected_percentage', function (req, res) {
-    request(url1, function (error, response, body) {
+app.get('/die_plus', function (req, res) {
+    request(url, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.num > tbody > tr:nth-child(1) > td:nth-child(5)').each(function () {
+        $('div.liveNum').each(function () {
             text = $(this).text().toString();
-            res.send(text)
-            console.log(text)
+            text = text.split('\n')
+            text = text[25].replace(/[^0-9]/g, "");
+            text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            res.send(text);
+            console.log(text);
         })
-    });
+    })
 })
 
-app.get('/korea', function(req,res){
+app.get('/korea', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
         $('div#mapAll > .mapview > .cityinfo  ').each(function () {
@@ -341,6 +344,8 @@ app.get('/korea', function(req,res){
         })
     })
 })
+
+
 
 app.listen(port, function () {
     console.log('서버 실행중...');
