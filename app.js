@@ -79,7 +79,7 @@ app.get('/die_percentage', function (req, res) {
             var die = text[11].replace(/[^0-9]/g, "");
             die_percentage = (die / infected) * 100
             die_percentage = die_percentage.toFixed(2)
-            res.send(die_percentage);
+            res.send(die);
             console.log(die_percentage);
         })
     })
@@ -328,17 +328,18 @@ app.get('/infected_percentage', function (req, res) {
 app.get('/korea', function(req,res){
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.co_cur > ul').each(function () {
-            text = $(this).text();
-            test_text = text.toString();
-            test_text = test_text.split('\n');
-            var a = test_text[1].replace(/[^0-9]/g, "");
-            var b = test_text[3].replace(/[^0-9]/g, "");
-            var c = a + "명(사망 " + b + ")"
-            res.send(c)
-            console.log(c)
+        $('div#mapAll > .mapview > .cityinfo  ').each(function () {
+            text = $(this).text().toString();
+            text = text.split('\n');
+            var infected = text[3].replace(/[^0-9]/g, "");
+            infected = infected.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var die = text[11].replace(/[^0-9]/g, "");
+            die = die.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+            var result = infected + "명(사망 " + die + ")";
+            res.send(result);
+            console.log(result);
         })
-    });
+    })
 })
 
 app.listen(port, function () {
