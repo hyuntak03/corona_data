@@ -4,7 +4,7 @@ var express = require('express')
 const http = require('http')
 var app = express()
 var port = process.env.PORT || 3000;
-var url = 'http://ncov.mohw.go.kr/index_main.jsp';
+var url = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=11&ncvContSeq=&contSeq=&board_id=&gubun=';
 var url1 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=1&brdGubun=13&ncvContSeq=&contSeq=&board_id=&gubun=';
 var url2 = 'http://ncov.mohw.go.kr/bdBoardList_Real.do?brdId=&brdGubun=&ncvContSeq=&contSeq=&board_id=&gubun='
 
