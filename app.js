@@ -73,13 +73,12 @@ app.get('/die_percentage', function (req, res) {
     request(url, function (error, response, body) {
         var $ = cheerio.load(body)
         $('div#mapAll > .mapview > .cityinfo  ').each(function () {
-            var infected = $(this).text().toString();
-            var die = $(this).text().toString();
-            infected = infected.split('\n')
-            die = die.split('\n')
-            infected = infected[3].replace(/[^0-9]/g, "");
-            die = die[11].replace(/[^0-9]/g, "");
-            var die_percentage = (die/infected) * 100;
+            text = $(this).text().toString();
+            text = text.split('\n');
+            var infected = text[3].replace(/[^0-9]/g, "");
+            var die = text[11].replace(/[^0-9]/g, "");
+            die_percentage = (die / infected) * 100
+            die_percentage = die_percentage.toFixed(2)
             res.send(die_percentage);
             console.log(die_percentage);
         })
