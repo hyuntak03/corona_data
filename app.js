@@ -315,7 +315,7 @@ app.get('/iran', function (req, res) {
 app.get('/italy', function (req, res) {
     request(url2, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.num.minisize> tbody > tr:nth-child(1) > td:nth-child(3)').first().each(function () {
+        $('.num.minisize> tbody > tr:nth-child(1) > td:nth-child(4)').first().each(function () {
             text = $(this).text();
             text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             res.send(text);
