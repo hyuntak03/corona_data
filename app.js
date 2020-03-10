@@ -279,7 +279,7 @@ app.get('/keongnam', function (req, res) {
 app.get('/jeju', function (req, res) {
     request(url1, function (error, response, body) {
         var $ = cheerio.load(body)
-        $('.num > tbody > tr:nth-child(19) > td:nth-child(3)').each(function () {
+        $('.num > tbody > tr:nth-child(18) > td:nth-child(3)').each(function () {
             text = $(this).text();
             text = text.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
             res.send(text);
